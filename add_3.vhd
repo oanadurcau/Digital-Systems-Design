@@ -4,13 +4,14 @@ use IEEE.numeric_std.all;
 
 entity add_3 is	   
   port (
-         BINARY : in   STD_LOGIC_VECTOR (7 downto 0);
-           UNIT : out  STD_LOGIC_VECTOR (3 downto 0);
-           TENS : out  STD_LOGIC_VECTOR (3 downto 0);
-       HUNDREDS : out  STD_LOGIC_VECTOR (3 downto 0)); 
+  BINARY : in   STD_LOGIC_VECTOR (7 downto 0);	
+     BCD : out  STD_LOGIC_VECTOR (11 downto 0));
+--           UNIT : out  STD_LOGIC_VECTOR (3 downto 0);
+--           TENS : out  STD_LOGIC_VECTOR (3 downto 0);
+--       HUNDREDS : out  STD_LOGIC_VECTOR (3 downto 0));
 end add_3;
 
-architecture arch_add_3 of add_3 is		 
+architecture behavioural_add_3 of add_3 is		 
 begin
  process(BINARY)
   variable BINARY_NUMBER: STD_LOGIC_VECTOR (7 downto 0);
@@ -33,15 +34,15 @@ begin
 	  
 	  
       BCD_NUMBER := BCD_NUMBER(10 downto 0) & BINARY_NUMBER(7);
-      BINARY_NUMBER := BINARY_NUMBER(7 downto 0) & '0';	 
+      BINARY_NUMBER := BINARY_NUMBER(6 downto 0) & '0';	 
 	  
 	  COUNT := COUNT - 1;
     
     end loop;
  
-    UNIT <= STD_LOGIC_VECTOR(BCD_NUMBER(3 downto 0));
-    TENS <= STD_LOGIC_VECTOR(BCD_NUMBER(7 downto 4));
-    HUNDREDS <= STD_LOGIC_VECTOR(BCD_NUMBER(11 downto 8));
-
+    --UNIT <= STD_LOGIC_VECTOR(BCD_NUMBER(3 downto 0));
+--    TENS <= STD_LOGIC_VECTOR(BCD_NUMBER(7 downto 4));
+--    HUNDREDS <= STD_LOGIC_VECTOR(BCD_NUMBER(11 downto 8));
+      BCD <= STD_LOGIC_VECTOR(BCD_NUMBER(11 downto 0));
   end process;
-end arch_add_3;
+end behavioural_add_3;
